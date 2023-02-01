@@ -103,10 +103,8 @@ public class  ArrayTheme {
         System.out.print("Исходный массив : ");
         printStringArr(stringsArr);
         int newLen = 0;
-        for (String element : stringsArr) {
-            if (!element.isBlank()) {
-                newLen++;
-            }
+        for(String element : stringsArr) {
+            if(!element.isBlank()) newLen++;
         }
         String[] destArr = new String[newLen];
         int startCopyRange = -1;
@@ -116,23 +114,20 @@ public class  ArrayTheme {
         for(int i = 0; i < len; i++) {
             boolean isBlank = stringsArr[i].isBlank();
             if(isBlank || i == len - 1) {
-                if(!isBlank) {
-                    count++;
-                }if(startCopyRange >= 0) {
+                if(!isBlank) count++;
+                if(startCopyRange >= 0) {
                     System.arraycopy(stringsArr, startCopyRange, destArr, nextDestStartRange, count);
                     nextDestStartRange += i - startCopyRange;
                 }
                 startCopyRange = -1;
                 count = 0;
             } else {
-                if(startCopyRange < 0) {
-                    startCopyRange = i;
-                    count++;
-                }
+                if(startCopyRange < 0) startCopyRange = i;
+                count++;
             }
-            }
-            System.out.print("Результат : ");
-            printStringArr(destArr);
+        }
+        System.out.print("Результат: ");
+        printStringArr(destArr);
     }
 
         private static void printIntArr(int[] arr, int columns) {
