@@ -12,10 +12,11 @@ public class  ArrayTheme {
         int len = intArr.length;
         System.out.println("Исходный массив : ");
         printIntArr(intArr, 0);
-        for (int i = 0; i < len / 2; i++) {
+        for (int i = 0; i < len; i++) {
+            len--;
             int temp = intArr[i];
-            intArr[i] = intArr[len - i - 1];
-            intArr[len - i - 1] = temp;
+            intArr[i] = intArr[len];
+            intArr[len] = temp;
         }
         System.out.println("Измененный массив : ");
         printIntArr(intArr, 0);
@@ -28,15 +29,13 @@ public class  ArrayTheme {
         }
         System.out.println("Исходный массив : ");
         printIntArr(intArr, 0);
-        intArr[9] = 9;
-        int multNumbers = 1;
+        int mulDigits = 1;
         System.out.println("Результат: ");
-        for (int i = 1; i < 9; i++) {
-            intArr[i] = i;
-            multNumbers = multNumbers * intArr[i];
-            System.out.print(i < 8 ? i + " * " : i + " = " + multNumbers + "\n");
+        for (int i = 1; i < len - 1; i++) {
+            mulDigits *= intArr[i];
+            System.out.print(intArr[i] + (i < len - 2 ? " * " : " = " + mulDigits));
         }
-        System.out.println("[0] = " + intArr[0]);
+        System.out.println("\n[0] = " + intArr[0]);
         System.out.println("[9] = " + intArr[9]);
 
         System.out.println("\n3.Удаление элементов массива");
@@ -48,11 +47,10 @@ public class  ArrayTheme {
         }
         System.out.println("Исходный массив : ");
         printFloatArr(floatArr, 8);
-        int midIndex = len / 2;
-        double midValue = floatArr[midIndex];
+        float middleNumber = floatArr[len / 2];
         int count = 0;
         for (int i = 0; i < len; i++) {
-            if(midValue < floatArr[i]) {
+            if(floatArr[i] > middleNumber) {
                 floatArr[i] = 0;
                 count++;
             }
