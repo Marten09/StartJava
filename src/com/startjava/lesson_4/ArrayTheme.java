@@ -13,9 +13,8 @@ public class  ArrayTheme {
         System.out.println("Исходный массив : ");
         printIntArr(intArr, 0);
         for (int i = 0; i < len; i++) {
-            len--;
             int temp = intArr[i];
-            intArr[i] = intArr[len];
+            intArr[i] = intArr[--len];
             intArr[len] = temp;
         }
         System.out.println("Измененный массив : ");
@@ -60,67 +59,71 @@ public class  ArrayTheme {
         System.out.println("\nКоличество обнуленных ячеек " + count);
 
         System.out.println("\n4.Вывод элементов массива лесенкой в обратном порядке");
-        char[] charArr = new char[26];
-        char symbol = 'A';
-        for (int i = 0; i < charArr.length; i++) {
-            charArr[i] = symbol++;
+        char[] alphabet = new char[26];
+        len = alphabet.length;
+        for (int i = 0; i < len; i++) {
+            alphabet[i] = (char) ('A' + i);
         }
-        for (int i = 0; i < charArr.length; i++) {
+        for (int i = 0; i < len; i++) {
             for (int j = 0; j <= i; j++) {
-                System.out.print(charArr[charArr.length - j - 1]);
+                System.out.print(alphabet[len - j - 1]);
             }
             System.out.println();
         }
 
         System.out.println("\n5.Генерация уникальных чисел");
-        int[] uniqueNumber = new int[30];
-        len = uniqueNumber.length;
-        int genNumber;
-        boolean unique;
+        int[] uniqueNumbers = new int[30];
+        len = uniqueNumbers.length;
         for (int i = 0; i < len; i++) {
+            int genNumber;
+            boolean unique;
             do {
                 unique = true;
-                genNumber = 60 + (int) (Math.random()*(100 - 60));
+                genNumber = 60 + (int) (Math.random() * (100 - 60));
                 for (int j = 0; j <= i; j++) {
-                    if(uniqueNumber[j] == genNumber) {
+                    if(uniqueNumbers[j] == genNumber) {
                         unique = false;
                         break;
                     }
                 }
             } while (!unique);
-            uniqueNumber[i] = genNumber;
+            uniqueNumbers[i] = genNumber;
         }
         System.out.println("Исходный массив : ");
-        printIntArr(uniqueNumber, 10);
-        Arrays.sort(uniqueNumber);
+        printIntArr(uniqueNumbers, 10);
+        Arrays.sort(uniqueNumbers);
         System.out.println("Отсортированный массив : ");
-        printIntArr(uniqueNumber, 10);
+        printIntArr(uniqueNumbers, 10);
 
         System.out.println("\n6.Сдвиг элементов массива");
-        String[] stringsArr = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
+        String[] srcArr = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
         System.out.print("Исходный массив : ");
-        printStringArr(stringsArr);
+        printStringArr(srcArr);
         int newLen = 0;
-        for(String element : stringsArr) {
+        for(String element : srcArr) {
             if(!element.isBlank()) newLen++;
         }
+
         String[] destArr = new String[newLen];
         int startCopyRange = -1;
         int nextDestStartRange = 0;
-        len = stringsArr.length;
+        len = srcArr.length;
         count = 0;
         for(int i = 0; i < len; i++) {
-            boolean isBlank = stringsArr[i].isBlank();
-            if(isBlank || i == len - 1) {
-                if(!isBlank) count++;
+            if(srcArr[i].isBlank() || i == len - 1) {
+                if(!srcArr[i].isBlank()) {
+                    count++;
+                }
                 if(startCopyRange >= 0) {
-                    System.arraycopy(stringsArr, startCopyRange, destArr, nextDestStartRange, count);
+                    System.arraycopy(srcArr, startCopyRange, destArr, nextDestStartRange, count);
                     nextDestStartRange += i - startCopyRange;
                 }
                 startCopyRange = -1;
                 count = 0;
             } else {
-                if(startCopyRange < 0) startCopyRange = i;
+                if(startCopyRange < 0) {
+                    startCopyRange = i;
+                }
                 count++;
             }
         }
