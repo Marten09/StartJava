@@ -3,22 +3,21 @@ package com.startjava.lesson_4.calculator;
 public class Calculator {
 
     public static double calculate (String mathExpression) {
-        String[] saveMathExpressoin = mathExpression.split(" ");
-        if(saveMathExpressoin.length != 3) {
+        String[] partsExpressoin = mathExpression.split(" ");
+        if(partsExpressoin.length != 3) {
             throw new IllegalArgumentException("Не верное выражение" );
         }
         int a;
-        char sign;
+        char sign = partsExpressoin[1].charAt(0);;
         int b;
         try {
-            a = Integer.parseInt(saveMathExpressoin[0]);
-            sign = saveMathExpressoin[1].charAt(0);
-            b = Integer.parseInt(saveMathExpressoin[2]);
+            a = Integer.parseInt(partsExpressoin[0]);
+            b = Integer.parseInt(partsExpressoin[2]);
+        } catch (IllegalArgumentException exc) {
+            throw new IllegalArgumentException("В выражении допустимо использовать только целые положительные числа!", exc);
+        }
         if (a < 0 || b < 0) {
             throw new IllegalArgumentException("Число должно быть положительным");
-        }
-        } catch (NumberFormatException exc) {
-            throw new IllegalArgumentException("Введенное выражение не является числом", exc);
         }
         return switch (sign) {
             case '+' -> Math.addExact(a, b);
