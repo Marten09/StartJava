@@ -111,7 +111,7 @@ public class  ArrayTheme {
         count = 0;
         for(int i = 0; i < len; i++) {
             if(srcArr[i].isBlank() || i == len - 1) {
-                if(!srcArr[i].isBlank()) {
+                if(srcArr[i] == " ") {
                     count++;
                 }
                 if(startCopyRange >= 0) {
@@ -131,35 +131,35 @@ public class  ArrayTheme {
         printStringArr(destArr);
     }
 
-        private static void printIntArr(int[] arr, int columns) {
-            int len = arr.length;
-            for (int i = 0; i < len; i++) {
-                if(columns > 0 && i % columns == 0) {
-                    System.out.println();
-                }
-                System.out.printf("%3d",arr[i]);
+    private static void printIntArr(int[] arr, int columns) {
+        int len = arr.length;
+        for (int i = 0; i < len; i++) {
+            if(columns > 0 && i % columns == 0) {
+                System.out.println();
             }
-            System.out.println();
+            System.out.printf("%3d",arr[i]);
         }
+        System.out.println();
+    }
 
-        private static void printFloatArr(float[] arr, int columns) {
-            int len = arr.length;
-            for (int i = 0; i < len; i++) {
-                if(columns > 0 && i % columns == 0) {
-                    System.out.println();
-                }
-                System.out.printf("%8.3f",arr[i]);
+    private static void printFloatArr(float[] arr, int columns) {
+        int len = arr.length;
+        for (int i = 0; i < len; i++) {
+            if(columns > 0 && i % columns == 0) {
+                System.out.println();
             }
-            System.out.println();
+            System.out.printf("%8.3f",arr[i]);
         }
+        System.out.println();
+    }
 
-        private static void printStringArr(String[] arr) {
-            System.out.print("{");
-            int len = arr.length;
-            for(int i = 0; i < len; i++) {
-                System.out.print("\"" + arr[i] + "\"" + (i < len - 1 ? ", " : ""));
-            }
-            System.out.print("}");
-            System.out.println();
+    private static void printStringArr(String[] arr) {
+        System.out.print("{");
+        int len = arr.length;
+        for(int i = 0; i < len; i++) {
+            System.out.print("\"" + arr[i] + "\"" + (i < len - 1 ? ", " : ""));
         }
+        System.out.print("}");
+        System.out.println();
+    }
 }
