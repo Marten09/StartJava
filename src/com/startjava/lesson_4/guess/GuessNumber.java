@@ -4,8 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class GuessNumber {
-    public static final int START_RANGE = 1;
-    public static final int END_RANGE = 100;
+    private final int START_RANGE = 1;
+    private final int END_RANGE = 100;
     private int guessedNumber;
     private Player player1;
     private Player player2;
@@ -20,38 +20,50 @@ public class GuessNumber {
     }
 
     public void start() {
-        player1.reset();
-        player2.reset();
-        guessedNumber = START_RANGE + rnd.nextInt(END_RANGE - START_RANGE + 1);
+        init();
         System.out.printf("\nУ каждого игрока по %d попыток", Player.MAX_TRY_COUNT);
         System.out.printf("\nЗагадано число от %d до %d\n", START_RANGE, END_RANGE);
-        while (!(isGuessed(player1) || isGuessed(player2) || (player1.noMoreTries() && player2.noMoreTries()))) {}
+        while (!(isGuessed(player1) || isGuessed(player2) || (player1.hasTries() && player2.hasTries()))) {}
         printEnteredNumbers(player1);
         printEnteredNumbers(player2);
     }
 
+    public void init() {
+        player1.reset();
+        player2.reset();
+        guessedNumber = START_RANGE + rnd.nextInt(END_RANGE - START_RANGE + 1);
+    }
+
     private boolean isGuessed(Player player) {
-        if (player.noMoreTries()) {
+        if (player.hasTries()) {
             System.out.printf("У %s закончились попытки!\n", player.getName());
             return false;
         }
-        System.out.printf("\nХодит %s. Введите число: ", player.getName());
-        player.addNumber(sc.nextInt());
-        sc.nextLine();
+        printNumber(player);
         if (player.getLastNumber() == guessedNumber) {
             System.out.printf("\nВерно! Игрок %s угадал число %d с %d попытки\n", player.getName(), guessedNumber,
                     player.getTryCount());
             return true;
         }
+        checkEnteredNumber(player);
+        if (player.hasTries()) {
+            System.out.printf("У %s закончились попытки!\n", player.getName());
+        }
+        return false;
+    }
+
+    private void printNumber(Player player) {
+        System.out.printf("\nХодит %s. Введите число: ", player.getName());
+        player.addNumber(sc.nextInt());
+        sc.nextLine();
+    }
+
+    private void checkEnteredNumber(Player player) {
         if (player.getLastNumber() > guessedNumber) {
             System.out.printf("Число %d больше того, что загадал компьютер\n", player.getLastNumber());
         } else if (player.getLastNumber() < guessedNumber) {
             System.out.printf("Число %d меньше того, что загадал компьютер\n", player.getLastNumber());
         }
-        if (player.noMoreTries()) {
-            System.out.printf("У %s закончились попытки!\n", player.getName());
-        }
-        return false;
     }
 
     private void printEnteredNumbers(Player player) {

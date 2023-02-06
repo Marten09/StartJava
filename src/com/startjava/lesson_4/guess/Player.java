@@ -6,7 +6,7 @@ public class Player {
     public static final int MAX_TRY_COUNT = 10;
     private int[] enteredNumbers;
     private String name;
-    private int tryCount;
+    private int countTry;
 
     public Player(String name) {
         this.name = name;
@@ -14,19 +14,19 @@ public class Player {
     }
 
     public int[] getEnteredNumbers() {
-        return (tryCount > 0 ? Arrays.copyOf(enteredNumbers, tryCount) : new int[0]);
+        return (countTry >= 0 ? Arrays.copyOf(enteredNumbers, countTry) : new int[0]);
     }
 
     public int getLastNumber() {
-        return tryCount > 0 ? enteredNumbers[tryCount - 1] : 0;
+        return countTry > 0 ? enteredNumbers[countTry - 1] : 0;
     }
 
     public void addNumber(int number) {
-        if (noMoreTries()) {
+        if (hasTries()) {
             return;
         }
-        enteredNumbers[tryCount] = number;
-        tryCount++;
+        enteredNumbers[countTry] = number;
+        countTry++;
     }
 
     public String getName() {
@@ -34,15 +34,15 @@ public class Player {
     }
 
     public int getTryCount() {
-        return tryCount;
+        return countTry;
     }
 
-    public boolean noMoreTries() {
-        return tryCount == MAX_TRY_COUNT;
+    public boolean hasTries() {
+        return countTry == MAX_TRY_COUNT;
     }
 
     public void reset() {
-        Arrays.fill(enteredNumbers, 0, tryCount, 0);
-        tryCount = 0;
+        Arrays.fill(enteredNumbers, 0, countTry, 0);
+        countTry = 0;
     }
 }
