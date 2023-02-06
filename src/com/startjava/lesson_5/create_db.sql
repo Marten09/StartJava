@@ -15,3 +15,5 @@ CREATE TABLE jaegers(
 	launch DATE,
 	kaijuKill INTEGER
 );
+\i  init_db.sql
+\i queries.sql
